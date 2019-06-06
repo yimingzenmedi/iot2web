@@ -1,3 +1,8 @@
+$(function(){
+    updateSavedGuest();
+    updateVisitingInformation();
+});
+
 
 function uploadFile(obj) {
     var html = '';
@@ -42,11 +47,43 @@ function submitFile() {
 }
 
 function updateSavedGuest() {
-
+    $.get("./ReadSavedGuest", function(data){
+        var dataList = data.split("\n");
+        dataList.sort();
+        for(var i=0; i<dataList.length; i++){
+            var html = '<tr>' +
+                            '<td class="name">' + dataList[i] + '</td>' + 
+                            '<td class="deleteGuest">DELETE</td>' + 
+                        '</tr>';
+            $("#savedGuest").append(html);
+        }
+    });
 }
 
 function updateVisitingInformation() {
+    $.get("./ReadVisitingInformation", function(data){
+        // alert("data:" + JSON.parse(data));
 
+        var dataList = new Array();
+        var n = 0;
+        for(var key in JSON.parse(data)){
+            var time = JSON.parse(data)[key].split("\n")[0];
+            var name = JSON.parse(data)[key].split("\n")[1];
+            var itemList = new Array(key, time, name);
+            dataList[n] = itemList;
+            n++;
+        }   
+        dataList.sort();
+
+        for(var i=0; i<n; i++){
+            var html =  '<tr class="item">' + 
+                            '<td class="infoName">' + dataList[i][2] + '</td>' +
+                            '<td class="infoTime">' + dataList[i][1] + '</td>' +
+                            '<td class="infoDel">DELETE</td>' + 
+                        '</tr>';
+            $("#info").append(html);
+        }
+    });
 }
 
 function deleteGuest(obj) {
@@ -58,5 +95,5 @@ function deleteInfo(obj) {
 }
 
 function clearInfo() {
-
+    alert("clearInfo");
 }

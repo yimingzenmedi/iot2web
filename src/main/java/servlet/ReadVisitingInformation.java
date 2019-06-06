@@ -7,10 +7,13 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.ServletException;
+import java.util.ArrayList;
+import java.util.Arrays;
+    import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.JSONObject;
 
 /**
  *
@@ -32,15 +35,17 @@ public class ReadVisitingInformation extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ReadVisitingInformation</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ReadVisitingInformation at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            JSONObject json = new JSONObject("{}");
+
+            json.put("3", "18:39 2019/6/6\nuser1");
+            json.put("4", "18:39 2019/6/7\nuser1");
+            json.put("5", "18:39 2019/7/6\nuser3");
+            json.put("2", "01:39 2019/6/6\nuser1");
+            json.put("1", "18:39 2009/6/6\nuser4");
+           
+           
+            out.print(json);
+            
         }
     }
 
