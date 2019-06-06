@@ -53,7 +53,7 @@ function updateSavedGuest() {
         for(var i=0; i<dataList.length; i++){
             var html = '<tr>' +
                             '<td class="name">' + dataList[i] + '</td>' + 
-                            '<td class="deleteGuest">DELETE</td>' + 
+                            '<td class="deleteGuest" onclick="deleteGuest(this)">DELETE</td>' + 
                         '</tr>';
             $("#savedGuest").append(html);
         }
@@ -79,21 +79,52 @@ function updateVisitingInformation() {
             var html =  '<tr class="item">' + 
                             '<td class="infoName">' + dataList[i][2] + '</td>' +
                             '<td class="infoTime">' + dataList[i][1] + '</td>' +
-                            '<td class="infoDel">DELETE</td>' + 
+                            '<td class="infoDel" onclick="deleteInfo(this)">DELETE</td>' + 
                         '</tr>';
             $("#info").append(html);
         }
     });
 }
 
-function deleteGuest(obj) {
 
+function deleteGuest(obj) {
+    var r = confirm("Delete this guest?");
+    if (r == true) {
+        $.post("./DeleteGuest", function(data){
+            if(data == 1){
+                updateVisitingInformation();
+                alert("deleteGuest");
+            }else{
+                alert("error");
+            }
+        });
+    }
 }
 
 function deleteInfo(obj) {
-
+    var r = confirm("Delete this visiting information?");
+    if (r == true) {
+        $.post("./DeleteInfo", function(data){
+            if(data == 1){
+                updateVisitingInformation();
+                alert("deleteInfo");
+            }else{
+                alert("error");
+            }
+        });
+    }
 }
 
 function clearInfo() {
-    alert("clearInfo");
+    var r = confirm("Delete all visiting information?");
+    if (r == true) {
+        $.post("./ClearInfo", function(data){
+            if(data == 1){
+                updateVisitingInformation();
+                alert("clearInfo");
+            }else{
+                alert("error");
+            }
+        });
+    }
 }
