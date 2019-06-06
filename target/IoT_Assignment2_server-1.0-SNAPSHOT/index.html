@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>System Manage Page</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="index.css">
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+        <script type="text/javascript" src="index.js"></script>
+    </head>
+    <body>
+    	<div id="header">
+    		<h1>System Manager</h1>
+    	</div>
+        <div id="main">	
+        	<div class="block">
+        		<h2 class="blockTitle">
+        			Add New Guest
+        		</h2>
+        		<form id="addNewGuest" onsubmit="return false">
+        			<div id="addLeft">
+        				<label for="file" id="fileLable">
+        					<img id="adder" src="add.png">
+        				</label>
+        				<input type="file" name="file" id="file" accept=".jpg" required="required" onchange="uploadFile(this)">
+        				<p>Upload picture here</p>
+        			</div>
+    				<div id="addRight">
+        				<label for="name">Guest Name: </label>
+	        			<input type="text" name="name" id="name" required="required">
+	        			<div id="adderButtons">
+	        				<button type="reset" class="adderButton" id="reset">Reset</button>
+	        				<button type="button" onclick="submitFile()" class="adderButton" id="add">Submit</button>
+	        			</div>
+        			</div>
+        		</form>
+        		
+        	</div>
+        	<div class="block">
+        		<h2 class="blockTitle">Saved Guest</h2>
+        		<table id="savedGuest">
+        			<tr>
+        				<td class="name">User1</td>
+        				<td class="deleteGuest">DELETE</td>
+        			</tr>
+        			<tr>
+        				<td class="name">User1</td>
+        				<td class="deleteGuest">DELETE</td>
+        			</tr>
+        			<tr>
+        				<td class="name">User1</td>
+        				<td class="deleteGuest">DELETE</td>
+        			</tr>
+        		</table>
+        	</div>
+
+        	<div class="block">
+        		<h2 class="blockTitle">Visiting Information</h2>
+        		<table id="info">
+        			<tr class="item">
+        				<td class="infoName">user1</td>
+        				<td class="infoTime">21:58 2019/6/4</td>
+        				<td class="infoDel">DELETE</td>
+        			</tr>
+        			<tr class="item">
+        				<td class="infoName">user1</td>
+        				<td class="infoTime">21:58 2019/6/4</td>
+        				<td class="infoDel">DELETE</td>
+        			</tr>
+        			<tr class="item">
+        				<td class="infoName">user1</td>
+        				<td class="infoTime">21:58 2019/6/4</td>
+        				<td class="infoDel">DELETE</td>
+        			</tr>
+        			<tr class="item">
+        				<td class="infoName">user1</td>
+        				<td class="infoTime">21:58 2019/6/4</td>
+        				<td class="infoDel">DELETE</td>
+        			</tr>
+        			<tr class="item">
+        				<td class="infoName">user1</td>
+        				<td class="infoTime">21:58 2019/6/4</td>
+        				<td class="infoDel">DELETE</td>
+        			</tr>
+        		</table>
+        		<div id="clearDiv">
+        			<button id="clear">Clear all visiting information</button>
+        		</div>
+        	</div>
+        </div>
+    </body>
+</html>

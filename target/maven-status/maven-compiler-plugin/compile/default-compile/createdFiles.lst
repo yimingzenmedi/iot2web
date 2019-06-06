@@ -1,0 +1,8 @@
+com\mycompany\iot_assignment2_server\IAMDatabaseAuthenticationTester.class
+com\mycompany\iot_assignment2_server\GenerateRDSAuthToken.class
+servlet\DeleteInfo.class
+servlet\AddNewGuest.class
+servlet\ReadVisitingInformation.class
+servlet\ClearInfo.class
+servlet\DeleteGuest.class
+servlet\ReadSavedGuest.class
