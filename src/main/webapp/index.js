@@ -99,7 +99,7 @@ function deleteGuest(obj) {
     if (r == true) {
         $.post("./DeleteGuest",{"name": name}, function(data){
             if(data == 1){
-                updateVisitingInformation();
+                updateSavedGuest();
                 alert("deleteGuest");
             }else{
                 alert("error");
