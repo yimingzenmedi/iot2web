@@ -39,7 +39,7 @@ function submitFile() {
             contentType: false,
             processData: false,
             success: function(res) {
-                alert(res);
+                // alert(res);
 				window.location.reload();
             }
         });
@@ -50,11 +50,11 @@ function updateSavedGuest() {
     $.get("./ReadSavedGuest", function(data){
         var dataList = data.split("\n");
         dataList.sort();
-        alert(dataList);
+        // alert(dataList);
 
         if(dataList.length > 0){
             for(var i=0; i<dataList.length; i++){
-                alert(i);
+                // alert(i);
                 var html = '<tr>' +
                                 '<td class="name">' + dataList[i] + '</td>' + 
                                 '<td class="deleteGuest" onclick="deleteGuest(this)">DELETE</td>' + 
@@ -67,11 +67,11 @@ function updateSavedGuest() {
 
 function updateVisitingInformation() {
     $.get("./ReadVisitingInformation", function(data){
-        // alert("data:" + JSON.parse(data));
 
         var dataList = new Array();
         var n = 0;
-        if(json.length>0){
+        // alert(data);
+        if(data != ""){
             for(var key in JSON.parse(data)){
                 var time = JSON.parse(data)[key].split("\n")[0];
                 var name = JSON.parse(data)[key].split("\n")[1];
@@ -98,7 +98,7 @@ function updateVisitingInformation() {
 function deleteGuest(obj) {
     var r = confirm("Delete this guest?");
     var name = $(obj).prev().text();
-    alert(name);
+    // alert(name);
     if (r == true) {
         $.post("./DeleteGuest",{"name": name}, function(data){
             if(data == 1){
@@ -113,7 +113,7 @@ function deleteGuest(obj) {
 
 function deleteInfo(obj) {
     var id = $(obj).attr("value");
-    alert(id);
+    // alert(id);
     var r = confirm("Delete this visiting information?");
     if (r == true) {
         $.post("./DeleteInfo",{"id": id}, function(data){
