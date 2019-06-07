@@ -42,6 +42,7 @@ public class Recognize extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            Statement statement = (new JDBCConnector()).newConnector();
             String img = request.getParameter("img");
             System.out.println("img: "+img);
             String filePath = new File("").getAbsolutePath()+"/recognize";
@@ -87,7 +88,13 @@ public class Recognize extends HttpServlet {
                 if(faceId.equals("")){
                     strangerNum ++ ;
                 } else {
-                    voice = voice + faceId + ", ";
+                    try{
+                        ResultSet resultSet = statement.executeQuery("select name from user where pid='"+faceId+"'");
+                         while(resultSet.next()){
+                            String name = resultSet.getString("name");
+                            voice = voice + name + ", ";
+                        }
+                    }catch(SQLException e){}
                 }
             }
             if(strangerNum != 0){
@@ -118,7 +125,6 @@ public class Recognize extends HttpServlet {
                 SimpleDateFormat df = new SimpleDateFormat(" HH:mm:ss MM-dd-yyyy");
                 String time = df.format(new Date());
                 
-                Statement statement = (new JDBCConnector()).newConnector();
                 if(!faceIds.isEmpty()){
                     for(String id : faceIds){
                         ResultSet resultSet = statement.executeQuery("select name from user where pid='"+id+"'");
