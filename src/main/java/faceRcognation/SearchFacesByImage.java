@@ -48,9 +48,10 @@ public class SearchFacesByImage {
 //                Float similarity = match.getSimilarity();
                 Face face = match.getFace();
                 faceId.add(face.getFaceId());
+                System.out.println(face.getFaceId());
+
 //            if(face.getFaceId().equals("83742d2c-8ee1-4d47-a361-bf352504bd58")) voice="matched user name is mu lin Shi";
 //            else voice="mached face ID is "+face.getFaceId()+" External Image ID is "+face.getExternalImageId();
-//            System.out.println(voice);
 
 //            System.out.println("MATCH:" +
 //                    "\nSimilarity: " + similarity +

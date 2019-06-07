@@ -7,6 +7,7 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Statement;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -34,9 +35,14 @@ public class ClearInfo extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             try{
                 // clear info here
-                out.print(1);
+                Statement statement = (Statement) new JDBCConnector();
+                boolean result = statement.execute("DELETE FROM log;");
+                if(result){
+                    out.print(1);
+                }else{
+                    out.print(0);
+                }
             }catch(Exception e){
-                out.print(0);
             }
         }
     }

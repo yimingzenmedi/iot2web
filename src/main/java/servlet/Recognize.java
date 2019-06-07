@@ -10,8 +10,13 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -107,12 +112,34 @@ public class Recognize extends HttpServlet {
                 voice = voice + " are waiting outside.";
             }
             
-            try {
-                String voiceStream = textToAudio.PollyDemo.runPolly(voice);
-                out.print(voiceStream);
-            } catch (Exception e) {
-                e.printStackTrace();
+            boolean ok = true;
+            try{            
+                // delete guest here
+                SimpleDateFormat df = new SimpleDateFormat(" HH:mm:ss MM-dd-yyyy");
+                String time = df.format(new Date());
+                
+                Statement statement = (Statement) new JDBCConnector();
+                if(!faceIds.isEmpty()){
+                    for(String id : faceIds){
+                        ResultSet resultSet = statement.executeQuery("select name from user where pid='"+id+"'");
+                        while(resultSet.next()){
+                            String name = resultSet.getString("name");
+                            boolean result = statement.execute("INSERT INTO log (name, time) VALUES ('"+name+"', '"+time+"');");
+                            ok = result;
+                        }
+                    }                
+                }
+            }catch(SQLException e){
             }
+            
+            if(ok){
+                try {
+                    String voiceStream = textToAudio.PollyDemo.runPolly(voice);
+                    out.print(voiceStream);
+                } catch (Exception e) {
+                }
+            }
+            
             System.out.println(voice);
         }
     }

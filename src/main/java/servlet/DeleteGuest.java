@@ -7,6 +7,8 @@ package servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -34,9 +36,17 @@ public class DeleteGuest extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             try{
                 // delete guest here
-                out.print(1);
-            }catch(Exception e){
-                out.print(0);
+                Statement statement = (Statement) new JDBCConnector();
+                String name = request.getParameter("name");
+                boolean deleteLogResult = statement.execute("DELETE FROM log WHERE name = '"+name+"';");
+                boolean deleteUserResult = statement.execute("DELETE FROM user WHERE name='"+name+"';");  
+                if(deleteUserResult && deleteLogResult){
+                    out.print(1);
+                } else {
+                    out.print(0);
+                }
+            }catch(SQLException e){
+                e.printStackTrace();
             }
         }
     }

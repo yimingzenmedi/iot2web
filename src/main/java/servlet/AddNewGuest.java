@@ -5,6 +5,7 @@
  */
 package servlet;
 
+import faceRcognation.IndexFaces;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import java.sql.*;
+import java.util.ArrayList;
 
 
 /**
@@ -36,6 +39,13 @@ public class AddNewGuest extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+//        make folder path
+        String uploadPath = "upload";
+        File uploadDir = new File(uploadPath);
+        if(!uploadDir.exists()){
+            uploadDir.mkdir();
+        }
+        String filePath = "";
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             if(!ServletFileUpload.isMultipartContent(request)){
@@ -50,31 +60,60 @@ public class AddNewGuest extends HttpServlet {
             upload.setSizeMax(1024*1024*45);
             upload.setHeaderEncoding("UTF-8"); 
             
-            String uploadPath = "upload";
-            File uploadDir = new File(uploadPath);
-            if(!uploadDir.exists()){
-                uploadDir.mkdir();
-            }
+//            String uploadPath = "upload";
+//            File uploadDir = new File(uploadPath);
+//            if(!uploadDir.exists()){
+//                uploadDir.mkdir();
+//            }
             
             List<FileItem> formItems = upload.parseRequest(request);
-            
+            String name = "";
             if(formItems != null && formItems.size()>0){
                 for(FileItem item : formItems){
                     if(!item.isFormField()){
                         String fileName = new File(item.getName()).getName();
-                        String filePath = uploadPath + File.separator + fileName;
+                        filePath = uploadPath + File.separator + fileName;
                         System.out.println(filePath);
                         File storeFile = new File(filePath);
                         item.write(storeFile);
+                                                
                         out.print("good");
                     } else {
-                        System.out.println("item: "+item.getString(""));
+                        name = item.getString();
+                        System.out.println("item: "+name);
+                    }
+                }
+                
+                IndexFaces indf = new IndexFaces();
+                ArrayList<String> faceIds = indf.indexFaces("testColl", filePath);
+                
+//              connect db
+                Statement statement = (Statement) new JDBCConnector();
+                for(String id : faceIds){
+                    if(!name.equals("")){
+                        boolean result = statement.execute("INSERT INTO user (user, pid) VALUES ('"+name+"', '"+id+"');");
+                        if(result){
+                            out.print("good");
+                        }else{
+                            out.print("bad");
+                        }
                     }
                 }
             }
+            
+           
 //            out.println("good");
             
-        }catch(Exception e){}
+        }catch(Exception e){}finally{
+//            File filePathDel = new File(filePath);
+//            if(!filePath.equals("") && filePathDel.exists()){
+//                if(filePathDel.delete()){                
+//                    System.out.println("file: " + filePath + " deleted.");
+//                }else{
+//                    System.out.println("file: " + filePath + " failed.");
+//                };
+//            }
+        }
     }
     
 

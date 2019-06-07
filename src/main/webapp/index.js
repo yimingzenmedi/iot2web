@@ -79,7 +79,7 @@ function updateVisitingInformation() {
             var html =  '<tr class="item">' + 
                             '<td class="infoName">' + dataList[i][2] + '</td>' +
                             '<td class="infoTime">' + dataList[i][1] + '</td>' +
-                            '<td class="infoDel" onclick="deleteInfo(this)">DELETE</td>' + 
+                            '<td class="infoDel" value="'+dataList[i][0]+'" onclick="deleteInfo(this)">DELETE</td>' + 
                         '</tr>';
             $("#info").append(html);
         }
@@ -102,9 +102,11 @@ function deleteGuest(obj) {
 }
 
 function deleteInfo(obj) {
+    var id = $(obj).attr("value");
+    alert(id);
     var r = confirm("Delete this visiting information?");
     if (r == true) {
-        $.post("./DeleteInfo", function(data){
+        $.post("./DeleteInfo",{"id": id}, function(data){
             if(data == 1){
                 updateVisitingInformation();
                 alert("deleteInfo");
