@@ -71,14 +71,17 @@ function updateVisitingInformation() {
 
         var dataList = new Array();
         var n = 0;
-        for(var key in JSON.parse(data)){
-            var time = JSON.parse(data)[key].split("\n")[0];
-            var name = JSON.parse(data)[key].split("\n")[1];
-            var itemList = new Array(key, time, name);
-            dataList[n] = itemList;
-            n++;
-        }   
-        dataList.sort();
+        if(json.length>0){
+            for(var key in JSON.parse(data)){
+                var time = JSON.parse(data)[key].split("\n")[0];
+                var name = JSON.parse(data)[key].split("\n")[1];
+                var itemList = new Array(key, time, name);
+                dataList[n] = itemList;
+                n++;
+            }   
+            dataList.sort();
+        }
+        
 
         for(var i=0; i<n; i++){
             var html =  '<tr class="item">' + 
