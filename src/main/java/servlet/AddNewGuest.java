@@ -88,11 +88,11 @@ public class AddNewGuest extends HttpServlet {
                 ArrayList<String> faceIds = indf.indexFaces("testColl", filePath);
                 
 //              connect db
-                Statement statement = (Statement) new JDBCConnector();
+                Statement statement = (new JDBCConnector()).newConnector();
                 for(String id : faceIds){
                     if(!name.equals("")){
-                        boolean result = statement.execute("INSERT INTO user (user, pid) VALUES ('"+name+"', '"+id+"');");
-                        if(result){
+                        int result = statement.executeUpdate("INSERT INTO user (name, pid) VALUES ('"+name+"', '"+id+"');");
+                        if(result > 0){
                             out.print("good");
                         }else{
                             out.print("bad");

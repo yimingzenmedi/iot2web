@@ -37,7 +37,7 @@ public class ReadSavedGuest extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             try{
                 // delete guest here
-                Statement statement = (Statement) new JDBCConnector();
+                Statement statement = (new JDBCConnector()).newConnector();
                 ResultSet resultSet = statement.executeQuery("SELECT name FROM user;");
                 String result = "";
                 while(resultSet.next()){

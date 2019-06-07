@@ -39,7 +39,7 @@ public class ReadVisitingInformation extends HttpServlet {
             JSONObject json = new JSONObject("{}");
             try{            
                 // delete guest here
-                Statement statement = (Statement) new JDBCConnector();
+                Statement statement = (new JDBCConnector()).newConnector();
                 ResultSet resultSet = statement.executeQuery("SELECT * FROM log;");
 //                String result = "";
                 while(resultSet.next()){

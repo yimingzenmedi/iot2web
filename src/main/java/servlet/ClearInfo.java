@@ -35,9 +35,9 @@ public class ClearInfo extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             try{
                 // clear info here
-                Statement statement = (Statement) new JDBCConnector();
-                boolean result = statement.execute("DELETE FROM log;");
-                if(result){
+                Statement statement = (new JDBCConnector()).newConnector();
+                int result = statement.executeUpdate("DELETE FROM log;");
+                if(result > 0){
                     out.print(1);
                 }else{
                     out.print(0);

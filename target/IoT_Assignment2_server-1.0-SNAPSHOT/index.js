@@ -50,12 +50,17 @@ function updateSavedGuest() {
     $.get("./ReadSavedGuest", function(data){
         var dataList = data.split("\n");
         dataList.sort();
-        for(var i=0; i<dataList.length; i++){
-            var html = '<tr>' +
-                            '<td class="name">' + dataList[i] + '</td>' + 
-                            '<td class="deleteGuest" onclick="deleteGuest(this)">DELETE</td>' + 
-                        '</tr>';
-            $("#savedGuest").append(html);
+        alert(dataList);
+
+        if(dataList.length > 0){
+            for(var i=0; i<dataList.length; i++){
+                alert(i);
+                var html = '<tr>' +
+                                '<td class="name">' + dataList[i] + '</td>' + 
+                                '<td class="deleteGuest" onclick="deleteGuest(this)">DELETE</td>' + 
+                            '</tr>';
+                $("#savedGuest").append(html);
+            }
         }
     });
 }
@@ -89,8 +94,10 @@ function updateVisitingInformation() {
 
 function deleteGuest(obj) {
     var r = confirm("Delete this guest?");
+    var name = $(obj).prev().text();
+    alert(name);
     if (r == true) {
-        $.post("./DeleteGuest", function(data){
+        $.post("./DeleteGuest",{"name": name}, function(data){
             if(data == 1){
                 updateVisitingInformation();
                 alert("deleteGuest");

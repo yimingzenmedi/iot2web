@@ -36,11 +36,11 @@ public class DeleteGuest extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             try{
                 // delete guest here
-                Statement statement = (Statement) new JDBCConnector();
+                Statement statement = (new JDBCConnector()).newConnector();
                 String name = request.getParameter("name");
-                boolean deleteLogResult = statement.execute("DELETE FROM log WHERE name = '"+name+"';");
-                boolean deleteUserResult = statement.execute("DELETE FROM user WHERE name='"+name+"';");  
-                if(deleteUserResult && deleteLogResult){
+                int deleteLogResult = statement.executeUpdate("DELETE FROM log WHERE name = '"+name+"';");
+                int deleteUserResult = statement.executeUpdate("DELETE FROM user WHERE name='"+name+"';");  
+                if(deleteUserResult>0){
                     out.print(1);
                 } else {
                     out.print(0);

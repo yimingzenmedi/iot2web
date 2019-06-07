@@ -112,27 +112,27 @@ public class Recognize extends HttpServlet {
                 voice = voice + " are waiting outside.";
             }
             
-            boolean ok = true;
+            int ok = 0;
             try{            
                 // delete guest here
                 SimpleDateFormat df = new SimpleDateFormat(" HH:mm:ss MM-dd-yyyy");
                 String time = df.format(new Date());
                 
-                Statement statement = (Statement) new JDBCConnector();
+                Statement statement = (new JDBCConnector()).newConnector();
                 if(!faceIds.isEmpty()){
                     for(String id : faceIds){
                         ResultSet resultSet = statement.executeQuery("select name from user where pid='"+id+"'");
                         while(resultSet.next()){
                             String name = resultSet.getString("name");
-                            boolean result = statement.execute("INSERT INTO log (name, time) VALUES ('"+name+"', '"+time+"');");
-                            ok = result;
+                            int result = statement.executeUpdate("INSERT INTO log (name, time) VALUES ('"+name+"', '"+time+"');");
+                            ok += result;
                         }
                     }                
                 }
             }catch(SQLException e){
             }
             
-            if(ok){
+            if(ok>0){
                 try {
                     String voiceStream = textToAudio.PollyDemo.runPolly(voice);
                     out.print(voiceStream);

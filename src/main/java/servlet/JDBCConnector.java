@@ -17,7 +17,7 @@ public class JDBCConnector {
     static String password = "dawang99";
     static String dbName = "iot";
 
-    public static Statement main(String args[]) {
+    public Statement newConnector() {
         try {
             Connection connect = DriverManager.getConnection(url+dbName, user, password);
             System.out.println("Successully fetch");
