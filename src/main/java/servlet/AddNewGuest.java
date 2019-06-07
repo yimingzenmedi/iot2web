@@ -5,6 +5,7 @@
  */
 package servlet;
 
+import faceRcognation.CreateCollection;
 import faceRcognation.IndexFaces;
 import java.io.File;
 import java.io.IOException;
@@ -48,6 +49,15 @@ public class AddNewGuest extends HttpServlet {
         String filePath = "";
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            try{
+                CreateCollection cc = new CreateCollection();
+                cc.createCollection("testColl");
+                System.out.println("New collection created");
+            } catch(Exception e){
+                System.out.println("No need to create collection");
+            }
+            
+            
             if(!ServletFileUpload.isMultipartContent(request)){
                 response.sendError(HttpServletResponse.SC_BAD_REQUEST);
                 return;

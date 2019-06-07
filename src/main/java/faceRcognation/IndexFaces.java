@@ -2,7 +2,6 @@ package faceRcognation;
 
 import com.amazonaws.services.rekognition.AmazonRekognition;
 import com.amazonaws.services.rekognition.model.*;
-import faceRcognation.ClientFactory;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
