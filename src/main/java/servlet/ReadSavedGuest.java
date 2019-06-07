@@ -46,7 +46,6 @@ public class ReadSavedGuest extends HttpServlet {
                 }
                 out.print(result);
             }catch(SQLException e){
-                e.printStackTrace();
             }
 //            out.print("user6\nuser2\nuser4\nuser1");
         }

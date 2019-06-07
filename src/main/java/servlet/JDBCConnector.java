@@ -12,9 +12,9 @@ import java.sql.*;
  * @author 64661
  */
 public class JDBCConnector {
-    static String url = "jdbc:mysql://iot.cgpvxm3eesat.ap-southeast-2.rds.amazonaws.com:3306/";
-    static String user = "shi";
-    static String password = "dafeifei";
+    static String url = "jdbc:mysql://db.cn8ieh7jpixa.us-west-2.rds.amazonaws.com:3306/";
+    static String user = "admin";
+    static String password = "dawang99";
     static String dbName = "iot";
 
     public static Statement main(String args[]) {
