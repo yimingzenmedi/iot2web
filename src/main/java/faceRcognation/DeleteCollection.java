@@ -9,8 +9,7 @@ public class DeleteCollection {
     public void deleteCollection(String name){
         String collectionId = name;
 
-        DeleteCollectionRequest request = new DeleteCollectionRequest()
-                .withCollectionId(collectionId);
+        DeleteCollectionRequest request = new DeleteCollectionRequest().withCollectionId(collectionId);
         AmazonRekognition rekognition = ClientFactory.createClient();
         DeleteCollectionResult result = rekognition.deleteCollection(request);
 

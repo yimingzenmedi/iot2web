@@ -34,7 +34,14 @@ public class IndexFaces {
         IndexFacesResult result = rekognition.indexFaces(request);
 
         System.out.println("Indexed image '" + imageArg + "':");
-
+        
+        SearchFacesByImage sfbi = new SearchFacesByImage();
+        ArrayList<String> existedFaceIds = sfbi.searchFacesByImage("testColl", imageArg);
+        if(!(existedFaceIds.size() ==1 && existedFaceIds.get(0).equals(""))){
+            System.out.println("existed");
+            return existedFaceIds;
+        }
+        
         List<FaceRecord> faceRecords = result.getFaceRecords();
         ArrayList<String> faceIds = new ArrayList();
         

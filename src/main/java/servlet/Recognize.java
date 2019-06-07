@@ -119,7 +119,6 @@ public class Recognize extends HttpServlet {
                 voice = voice + " are waiting outside.";
             }
             
-            int ok = 0;
             try{            
                 // delete guest here
                 SimpleDateFormat df = new SimpleDateFormat(" HH:mm:ss MM-dd-yyyy");
@@ -130,21 +129,19 @@ public class Recognize extends HttpServlet {
                         ResultSet resultSet = statement.executeQuery("select name from user where pid='"+id+"'");
                         while(resultSet.next()){
                             String name = resultSet.getString("name");
-                            int result = statement.executeUpdate("INSERT INTO log (name, time) VALUES ('"+name+"', '"+time+"');");
-                            ok += result;
+                            statement.executeUpdate("INSERT INTO log (name, time) VALUES ('"+name+"', '"+time+"');");
                         }
                     }                
+                }else{
+                    statement.executeUpdate("INSERT INTO log (name, time) VALUES ('stranger', '"+time+"');");
                 }
             }catch(SQLException e){
             }
             
-            if(ok>0){
-                try {
-                    String voiceStream = textToAudio.PollyDemo.runPolly(voice);
-                    out.print(voiceStream);
-                } catch (Exception e) {
-                }
-            }
+            try {
+                String voiceStream = textToAudio.PollyDemo.runPolly(voice);
+                out.print(voiceStream);
+            } catch (Exception e) {}
             
             System.out.println(voice);
         }
