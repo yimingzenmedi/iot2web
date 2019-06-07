@@ -77,7 +77,7 @@ public class AddNewGuest extends HttpServlet {
                         File storeFile = new File(filePath);
                         item.write(storeFile);
                                                 
-                        out.print("good");
+//                        out.print("good");
                     } else {
                         name = item.getString();
                         System.out.println("item: "+name);
@@ -100,8 +100,7 @@ public class AddNewGuest extends HttpServlet {
                     }
                 }
             }
-            
-           
+
 //            out.println("good");
             
         }catch(Exception e){}finally{
