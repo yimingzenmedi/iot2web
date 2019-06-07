@@ -92,9 +92,8 @@ public class AddNewGuest extends HttpServlet {
                 for(String id : faceIds){
                     if(!name.equals("")){
                         try{
-                            
-                        statement.execute("INSERT INTO user (name, pid) VALUES ('"+name+"', '"+id+"');");
-                            out.print("Upload finish");
+                            statement.execute("INSERT INTO user (name, pid) VALUES ('"+name+"', '"+id+"');");
+                            out.print("Upload succeeded");
                         }catch(SQLException e){
                             out.print("Upload failed");
                         }

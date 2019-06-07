@@ -124,7 +124,7 @@ public class Recognize extends HttpServlet {
                 SimpleDateFormat df = new SimpleDateFormat(" HH:mm:ss MM-dd-yyyy");
                 String time = df.format(new Date());
                 
-                if(!faceIds.isEmpty()){
+                if(!(faceIds.size() == 1 && faceIds.get(0).equals(""))){
                     for(String id : faceIds){
                         ResultSet resultSet = statement.executeQuery("select name from user where pid='"+id+"'");
                         while(resultSet.next()){
