@@ -54,12 +54,13 @@ function updateSavedGuest() {
             dataList.sort();
 
             for(var i=0; i<dataList.length; i++){
-                // alert(i);
-                var html = '<tr>' +
-                                '<td class="name">' + dataList[i] + '</td>' + 
-                                '<td class="deleteGuest" onclick="deleteGuest(this)">DELETE</td>' + 
-                            '</tr>';
-                $("#savedGuest").append(html);
+                if(dataList[i] != ""){
+                    var html = '<tr>' +
+                                    '<td class="name">' + dataList[i] + '</td>' + 
+                                    '<td class="deleteGuest" onclick="deleteGuest(this)">DELETE</td>' + 
+                                '</tr>';
+                    $("#savedGuest").append(html);
+                }
             }
         }
     });
