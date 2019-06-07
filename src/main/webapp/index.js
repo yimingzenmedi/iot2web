@@ -48,11 +48,10 @@ function submitFile() {
 
 function updateSavedGuest() {
     $.get("./ReadSavedGuest", function(data){
-        var dataList = data.split("\n");
-        dataList.sort();
-        // alert(dataList);
+        if(data!=""){
+            var dataList = data.split("\n");
+            dataList.sort();
 
-        if(dataList.length > 0){
             for(var i=0; i<dataList.length; i++){
                 // alert(i);
                 var html = '<tr>' +

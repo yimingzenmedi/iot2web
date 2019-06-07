@@ -19,6 +19,7 @@ public class JDBCConnector {
 
     public Statement newConnector() {
         try {
+            Class.forName("com.mysql.jdbc.DRIVER");
             Connection connect = DriverManager.getConnection(url+dbName, user, password);
             System.out.println("Successully fetch");
             Statement  statement = connect.createStatement();
