@@ -39,14 +39,15 @@ function submitFile() {
             contentType: false,
             processData: false,
             success: function(res) {
-                // alert(res);
-				window.location.reload();
+                alert(res);
+                window.location.reload();
             }
         });
 	}
 }
 
 function updateSavedGuest() {
+    $("#savedGuest").html("");
     $.get("./ReadSavedGuest", function(data){
         if(data!=""){
             var dataList = data.split("\n");
@@ -65,6 +66,7 @@ function updateSavedGuest() {
 }
 
 function updateVisitingInformation() {
+    $("#info").html("");
     $.get("./ReadVisitingInformation", function(data){
 
         var dataList = new Array();
