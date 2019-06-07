@@ -91,11 +91,12 @@ public class AddNewGuest extends HttpServlet {
                 Statement statement = (new JDBCConnector()).newConnector();
                 for(String id : faceIds){
                     if(!name.equals("")){
-                        int result = statement.executeUpdate("INSERT INTO user (name, pid) VALUES ('"+name+"', '"+id+"');");
-                        if(result > 0){
-                            out.print("good");
-                        }else{
-                            out.print("bad");
+                        try{
+                            
+                        statement.execute("INSERT INTO user (name, pid) VALUES ('"+name+"', '"+id+"');");
+                            out.print("Upload finish");
+                        }catch(SQLException e){
+                            out.print("Upload failed");
                         }
                     }
                 }
