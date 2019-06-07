@@ -45,7 +45,7 @@ public class Recognize extends HttpServlet {
             Statement statement = (new JDBCConnector()).newConnector();
             String img = request.getParameter("img");
             System.out.println("img: "+img);
-            String filePath = new File("").getAbsolutePath()+"/recognize";
+            String filePath = new File("").getAbsolutePath()+File.separator+"recognize";
             File fileDir = new File(filePath);
             if(!fileDir.exists() && !fileDir.isDirectory()){
                 fileDir.mkdir();
@@ -57,11 +57,11 @@ public class Recognize extends HttpServlet {
             
             try{
                 byte[] bytes = Base64.getDecoder().decode(img);
-                File file =new File(filePath+"/"+fileName);
+                File file =new File(filePath+File.separator+fileName);
                 fos = new java.io.FileOutputStream(file);
                 bos = new BufferedOutputStream(fos);
                 bos.write(bytes);
-                System.out.println("Save at: "+filePath+"/"+fileName);
+                System.out.println("Save at: "+filePath+File.separator+fileName);
 //                out.print("ok");
             } catch(Exception e){}finally {
                 if (bos != null) {
@@ -81,7 +81,7 @@ public class Recognize extends HttpServlet {
             }
             
             SearchFacesByImage sfbi = new SearchFacesByImage();
-            ArrayList<String> faceIds = sfbi.searchFacesByImage("testColl", filePath+"/"+fileName);
+            ArrayList<String> faceIds = sfbi.searchFacesByImage("testColl", filePath+File.separator+fileName);
             int strangerNum = 0;
             String voice = "";
             for(String faceId : faceIds) {
@@ -135,8 +135,7 @@ public class Recognize extends HttpServlet {
                 }else{
                     statement.executeUpdate("INSERT INTO log (name, time) VALUES ('stranger', '"+time+"');");
                 }
-            }catch(SQLException e){
-            }
+            }catch(SQLException e){}
             
             try {
                 String voiceStream = textToAudio.PollyDemo.runPolly(voice);

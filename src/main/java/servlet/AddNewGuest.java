@@ -60,12 +60,6 @@ public class AddNewGuest extends HttpServlet {
             upload.setSizeMax(1024*1024*45);
             upload.setHeaderEncoding("UTF-8"); 
             
-//            String uploadPath = "upload";
-//            File uploadDir = new File(uploadPath);
-//            if(!uploadDir.exists()){
-//                uploadDir.mkdir();
-//            }
-            
             List<FileItem> formItems = upload.parseRequest(request);
             String name = "";
             if(formItems != null && formItems.size()>0){
@@ -76,8 +70,6 @@ public class AddNewGuest extends HttpServlet {
                         System.out.println(filePath);
                         File storeFile = new File(filePath);
                         item.write(storeFile);
-                                                
-//                        out.print("good");
                     } else {
                         name = item.getString();
                         System.out.println("item: "+name);
