@@ -91,11 +91,15 @@ public class AddNewGuest extends HttpServlet {
                 Statement statement = (new JDBCConnector()).newConnector();
                 for(String id : faceIds){
                     if(!name.equals("")){
-                        int result = statement.executeUpdate("INSERT INTO user (name, pid) VALUES ('"+name+"', '"+id+"');");
-                        if(result > 0){
-                            out.print("good");
-                        }else{
-                            out.print("bad");
+                        if(!statement.execute("SELECT name FROM user WHERE id='"+id+"';")){
+                            int result = statement.executeUpdate("INSERT INTO user (name, pid) VALUES ('"+name+"', '"+id+"');");
+                            if(result > 0){
+                                out.print("good");
+                            }else{
+                                out.print("bad");
+                            }
+                        } else {
+                            out.print("This person has existed.");
                         }
                     }
                 }
