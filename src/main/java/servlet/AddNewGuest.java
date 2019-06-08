@@ -101,10 +101,7 @@ public class AddNewGuest extends HttpServlet {
                         }
                     }
                 }
-            }
-
-//            out.println("good");
-            
+            }     
         }catch(Exception e){}finally{
 //            File filePathDel = new File(filePath);
 //            if(!filePath.equals("") && filePathDel.exists()){

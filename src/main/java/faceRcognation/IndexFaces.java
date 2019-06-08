@@ -26,7 +26,7 @@ public class IndexFaces {
 
         SearchFacesByImage sfbi = new SearchFacesByImage();
         ArrayList<String> existedFaceIds = sfbi.searchFacesByImage("testColl", imageArg);
-        if(!(existedFaceIds.size() ==1 && existedFaceIds.get(0).equals(""))){
+        if(!(existedFaceIds.size()==1 && existedFaceIds.get(0).equals(""))){
             System.out.println("existed");
             return existedFaceIds;
         }
